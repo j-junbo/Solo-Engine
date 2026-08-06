@@ -26,7 +26,43 @@
 *.a
 *.lib
 
-# Executables
-*.exe
-*.out
-*.app
+# Build folders
+Engine/Build/*
+Engine/Solutions/*
+
+# Visual Studio
+.vs/
+*.vcxproj.user
+*.vcxproj.filters
+*.sdf
+*.opensdf
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+ipch/
+*.aps
+*.pdb
+*.idb
+*.ilk
+*.tlog
+*.log
+*.tmp
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# CMake-generated
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+CTestTestfile.cmake
+_deps/
+CMakeUserPresets.json
+
+# vcpkg
+vcpkg_installed/
