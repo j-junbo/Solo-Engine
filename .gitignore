@@ -65,4 +65,4 @@ _deps/
 CMakeUserPresets.json
 
 # vcpkg
-vcpkg_installed/
+Engine/vcpkg/installed/
