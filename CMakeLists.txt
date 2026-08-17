@@ -49,10 +49,17 @@ file(GLOB_RECURSE ENGINE_SOURCES
     "${CMAKE_SOURCE_DIR}/Engine/Engine_Source/*.hpp"
 )
 
+list(REMOVE_ITEM ENGINE_SOURCES "${CMAKE_SOURCE_DIR}/Engine/Engine_Source/main.cpp")
+
 # ---------------------------------------------------------------------------
-# Engine Executable
+# Engine Executable + DLL
 # ---------------------------------------------------------------------------
-add_executable(${PROJECT_NAME} ${ENGINE_SOURCES})
+add_executable(${PROJECT_NAME}Exec "${CMAKE_SOURCE_DIR}/Engine/Engine_Source/main.cpp;${CMAKE_SOURCE_DIR}/Engine/Engine_Source/dll_export.h")
+
+add_library(${PROJECT_NAME} SHARED ${ENGINE_SOURCES})
+set_target_properties(${PROJECT_NAME} PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+
+add_dependencies(${PROJECT_NAME}Exec ${PROJECT_NAME})
 
 target_include_directories(${PROJECT_NAME} PRIVATE
     "${CMAKE_SOURCE_DIR}/Engine/Engine_Source"
@@ -62,7 +69,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 source_group(TREE "${CMAKE_SOURCE_DIR}/Engine/Engine_Source" PREFIX "Engine" FILES ${ENGINE_SOURCES})
 
 # Make this project the default "Set as Startup Project" in VS
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME}Exec)
 
 # Optional: silence common MSVC warnings you've been dealing with (sign-compare, conversion)
 if (MSVC)
@@ -92,7 +99,7 @@ endforeach()
 
 
 # ---------------------------------------------------------------------------
-# Creating Symlinks
+# Creating Shortcuts
 # ---------------------------------------------------------------------------
 file(MAKE_DIRECTORY "${CMAKE_SOURCE_DIR}/Engine/Solutions")
 
