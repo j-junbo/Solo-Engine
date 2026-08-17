@@ -54,7 +54,7 @@ list(REMOVE_ITEM ENGINE_SOURCES "${CMAKE_SOURCE_DIR}/Engine/Engine_Source/main.c
 # ---------------------------------------------------------------------------
 # Engine Executable + DLL
 # ---------------------------------------------------------------------------
-add_executable(${PROJECT_NAME}Exec "${CMAKE_SOURCE_DIR}/Engine/Engine_Source/main.cpp;${CMAKE_SOURCE_DIR}/Engine/Engine_Source/dll_export.h")
+add_executable(${PROJECT_NAME}Exec "${CMAKE_SOURCE_DIR}/Engine/Engine_Source/main.cpp")
 
 add_library(${PROJECT_NAME} SHARED ${ENGINE_SOURCES})
 set_target_properties(${PROJECT_NAME} PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)

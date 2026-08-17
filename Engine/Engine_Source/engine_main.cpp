@@ -1,15 +1,9 @@
 #include <iostream>
 #include <engine_main.h>
 
-int square(int i, int y) { return i * i + y * y; }
+int engine_main() {
 
-class wallahi {
-public:
-	int square(int i, int y) { return i * i * y * y; }
-};
+	std::cout << "hello world!!\n";
 
-static wallahi wallah;
-
-EngineAPI getEngineAPI() {
-	return { std::bind(&wallahi::square,wallah,std::placeholders::_1,std::placeholders::_2) };
+	return 0;
 }
