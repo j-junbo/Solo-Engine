@@ -54,7 +54,7 @@ list(REMOVE_ITEM ENGINE_SOURCES "${CMAKE_SOURCE_DIR}/Engine/Engine_Source/main.c
 # ---------------------------------------------------------------------------
 # Engine Executable + DLL
 # ---------------------------------------------------------------------------
-add_executable(${PROJECT_NAME}Exec "${CMAKE_SOURCE_DIR}/Engine/Engine_Source/main.cpp")
+add_executable(${PROJECT_NAME}Exec WIN32 "${CMAKE_SOURCE_DIR}/Engine/Engine_Source/main.cpp")
 
 add_library(${PROJECT_NAME} SHARED ${ENGINE_SOURCES})
 set_target_properties(${PROJECT_NAME} PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
@@ -71,10 +71,8 @@ source_group(TREE "${CMAKE_SOURCE_DIR}/Engine/Engine_Source" PREFIX "Engine" FIL
 # Make this project the default "Set as Startup Project" in VS
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME}Exec)
 
-# Optional: silence common MSVC warnings you've been dealing with (sign-compare, conversion)
-if (MSVC)
-    target_compile_options(${PROJECT_NAME} PRIVATE /W4)
-endif()
+target_compile_options(${PROJECT_NAME} PRIVATE /W4)
+target_compile_options(${PROJECT_NAME}Exec PRIVATE /W4)
 
 # ---------------------------------------------------------------------------
 # Scripts Executable

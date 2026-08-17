@@ -5,9 +5,10 @@
 #include "dll_export.h"
 
 
-int main(void) {
+int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow)
+{
 
-	std::cout << "Hello world!\n";
+    std::cout << "Hello world!\n";
 
     HINSTANCE hinstDLL;
     FARPROC Engine_Main;
@@ -40,5 +41,5 @@ int main(void) {
     //    fFreeDLL = FreeLibrary(hinstDLL);
     //}
 
-	return 0;
+    return 0;
 }
