@@ -1,7 +1,1 @@
-#include <functional>
-
-struct EngineAPI {
-
-	std::function<int(int, int)> square;
-
-};
+#include "engine_api.h"

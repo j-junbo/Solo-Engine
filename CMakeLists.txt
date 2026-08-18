@@ -75,6 +75,22 @@ target_compile_options(${PROJECT_NAME} PRIVATE /W4)
 target_compile_options(${PROJECT_NAME}Exec PRIVATE /W4)
 
 # ---------------------------------------------------------------------------
+# vcpkg sources
+# ---------------------------------------------------------------------------
+
+target_link_libraries(${PROJECT_NAME} PRIVATE
+	GLEW::GLEW
+	glfw
+	glm::glm
+#	imgui::imgui
+#	Freetype::Freetype
+#	debug fmodL_vc
+#	optimized fmod_vc
+#	implot::implot
+#    imguizmo::imguizmo
+)
+
+# ---------------------------------------------------------------------------
 # Scripts Executable
 # ---------------------------------------------------------------------------
 

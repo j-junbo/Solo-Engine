@@ -23,3 +23,7 @@ int engine_main(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow)
 	
 	return 0;
 }
+
+EngineAPI getEngineAPI() {
+	return { {[](int i, int j) { return i * j; }} };
+}
