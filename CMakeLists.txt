@@ -78,16 +78,26 @@ target_compile_options(${PROJECT_NAME}Exec PRIVATE /W4)
 # vcpkg sources
 # ---------------------------------------------------------------------------
 
+find_package(GLEW CONFIG REQUIRED)
+find_package(glfw3 CONFIG REQUIRED)
+find_package(glm CONFIG REQUIRED)
+find_package(imgui CONFIG REQUIRED)
+find_package(implot CONFIG REQUIRED)
+find_package(imguizmo CONFIG REQUIRED)
+find_package(Freetype CONFIG REQUIRED)
+find_package(rttr CONFIG REQUIRED)
+
 target_link_libraries(${PROJECT_NAME} PRIVATE
 	GLEW::GLEW
 	glfw
 	glm::glm
-#	imgui::imgui
-#	Freetype::Freetype
+	imgui::imgui
+	Freetype::Freetype
 #	debug fmodL_vc
 #	optimized fmod_vc
-#	implot::implot
-#    imguizmo::imguizmo
+	implot::implot
+    imguizmo::imguizmo
+    RTTR::Core
 )
 
 # ---------------------------------------------------------------------------
