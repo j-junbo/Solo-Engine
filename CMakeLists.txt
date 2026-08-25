@@ -40,6 +40,9 @@ endforeach()
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# remove the _d postfix
+set(CMAKE_ENGINE_DEBUG_POSTFIX "")
+
 # ---------------------------------------------------------------------------
 # Gather sources
 # ---------------------------------------------------------------------------
@@ -120,6 +123,7 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         "${CMAKE_SOURCE_DIR}/Engine/External_Libs/fmod/lib/x64/fmod.dll"
         "$<TARGET_FILE_DIR:${PROJECT_NAME}>"
 )
+
 
 # ---------------------------------------------------------------------------
 # Scripts Executable

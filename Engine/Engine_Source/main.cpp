@@ -18,6 +18,7 @@ int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmd
 
     std::cout << "Hello world!\n";
 
+
     HINSTANCE hinstDLL;
     int(*Engine_Main)(HINSTANCE, HINSTANCE, PSTR, int);
     BOOL fFreeDLL;

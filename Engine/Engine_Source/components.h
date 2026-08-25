@@ -34,6 +34,7 @@ public:
 
 private:
 	Sentinel* sentinel;
+
 };
 
 struct NameComponent : public Component {
