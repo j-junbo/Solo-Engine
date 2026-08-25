@@ -2,8 +2,8 @@
 #include <engine_main.h>
 #include <string>
 #include <fmod.hpp>
-//#include <rttr/property.h>
-//#include <rttr/type.h>
+#include <rttr/property.h>
+#include <rttr/type.h>
 
 int engine_main(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow) {
 
@@ -18,9 +18,8 @@ int engine_main(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow)
 	//}
 
 	// rttr test
-	//rttr::property prop = rttr::type::get_global_property("NameComponent");
-	//std::cout << "typename is: " << prop.get_type().get_name() << '\n';
-
+	 rttr::property prop = rttr::type::get_by_name("NameComponent").get_property("name");
+	 std::cout << "typename is: " << prop.get_type().get_name().data() << '\n';
 
 
 

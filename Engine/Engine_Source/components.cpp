@@ -9,7 +9,6 @@ RTTR_REGISTRATION
 	RTTR_REGISTER_CLASS_(NameComponent)
 	RTTR_REGISTER_PROPERTY_(NameComponent, name);
 
-
 	RTTR_REGISTER_CLASS_(PositionComponent)
 	RTTR_REGISTER_PROPERTY_(PositionComponent, pos);
 

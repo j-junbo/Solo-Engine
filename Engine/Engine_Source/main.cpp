@@ -3,7 +3,6 @@
 #include <string>
 #include <libloaderapi.h>
 
-
 int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow)
 {
     AllocConsole();
@@ -17,7 +16,6 @@ int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmd
     std::ios::sync_with_stdio();
 
     std::cout << "Hello world!\n";
-
 
     HINSTANCE hinstDLL;
     int(*Engine_Main)(HINSTANCE, HINSTANCE, PSTR, int);
@@ -42,18 +40,6 @@ int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmd
         std::cout << "dll not found...\n";
         std::cout << "error code: " << GetLastError() << '\n';
     }
-
-    //if (hinstDLL != NULL)
-    //{
-    //    
-    //    EngineAPI api = ((EngineAPI(*)(void))GetProcAddress(hinstDLL, "getEngineAPI"))();
-
-    //    std::cout << "square is: " << api.square(3, 4);
-    //    
-
-    //    api = EngineAPI{};
-    //    fFreeDLL = FreeLibrary(hinstDLL);
-    //}
 
     std::string s;
     while (std::getline(std::cin, s)) {

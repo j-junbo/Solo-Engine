@@ -1,10 +1,12 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 4.4.0)
 
 # Setting the vcpkg toolchain file
 set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/Engine/vcpkg/scripts/buildsystems/vcpkg.cmake"
     CACHE STRING "Vcpkg toolchain file")
 set(CMAKE_CONFIGURATION_TYPES "Engine_Debug;Engine_Release" CACHE STRING "" FORCE)
-
+set(VCPKG_TARGET_TRIPLET "x64-windows-static-md" CACHE STRING "")
+cmake_policy(SET CMP0091 NEW)
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Engine_Debug>:Debug>DLL")
 
 project(GameEngine LANGUAGES CXX)
 
@@ -19,7 +21,6 @@ set(CMAKE_EXE_LINKER_FLAGS_ENGINE_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG}")
 
 set(CMAKE_CXX_FLAGS_ENGINE_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
 set(CMAKE_EXE_LINKER_FLAGS_ENGINE_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE}")
-
 
 # ---------------------------------------------------------------------------
 # Force all build output (regardless of config) into ./Engine/Build
@@ -105,7 +106,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     RTTR::Core
 )
 
-
 # ---------------------------------------------------------------------------
 # other sources
 # ---------------------------------------------------------------------------
@@ -124,6 +124,12 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         "$<TARGET_FILE_DIR:${PROJECT_NAME}>"
 )
 
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        $<TARGET_RUNTIME_DLLS:${PROJECT_NAME}>
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>
+    COMMAND_EXPAND_LISTS
+)
 
 # ---------------------------------------------------------------------------
 # Scripts Executable

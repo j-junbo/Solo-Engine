@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <glm/glm.hpp>
+#include <rttr/rttr_enable.h>
 
 class Component; // Forward declaration
 
