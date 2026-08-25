@@ -34,6 +34,7 @@ foreach(OUTPUTCONFIG Engine_Debug Engine_Release)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER} "${CMAKE_SOURCE_DIR}/Engine/Build/Engine/${OUTPUTCONFIG}")
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER} "${CMAKE_SOURCE_DIR}/Engine/Build/Engine/${OUTPUTCONFIG}")
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER} "${CMAKE_SOURCE_DIR}/Engine/Build/Engine/${OUTPUTCONFIG}")
+    set(PDB_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER} "${CMAKE_SOURCE_DIR}/Engine/Build/Engine/${OUTPUTCONFIG}")
 endforeach()
 
 set(CMAKE_CXX_STANDARD 17)
@@ -74,6 +75,9 @@ set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME}Exec)
 target_compile_options(${PROJECT_NAME} PRIVATE /W4)
 target_compile_options(${PROJECT_NAME}Exec PRIVATE /W4)
 
+target_compile_options(${PROJECT_NAME} PRIVATE $<$<CONFIG:Engine_Debug>:/Zi>)
+target_link_options(${PROJECT_NAME} PRIVATE $<$<CONFIG:Engine_Debug>:/DEBUG>)
+
 # ---------------------------------------------------------------------------
 # vcpkg sources
 # ---------------------------------------------------------------------------
@@ -93,11 +97,28 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 	glm::glm
 	imgui::imgui
 	Freetype::Freetype
-#	debug fmodL_vc
-#	optimized fmod_vc
 	implot::implot
     imguizmo::imguizmo
     RTTR::Core
+)
+
+
+# ---------------------------------------------------------------------------
+# other sources
+# ---------------------------------------------------------------------------
+
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    "${CMAKE_SOURCE_DIR}/Engine/External_Libs/fmod/lib/x64/fmod_vc.lib"
+)
+
+target_include_directories(${PROJECT_NAME} PRIVATE
+    "${CMAKE_SOURCE_DIR}/Engine/External_Libs/fmod/inc"
+)
+
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${CMAKE_SOURCE_DIR}/Engine/External_Libs/fmod/lib/x64/fmod.dll"
+        "$<TARGET_FILE_DIR:${PROJECT_NAME}>"
 )
 
 # ---------------------------------------------------------------------------

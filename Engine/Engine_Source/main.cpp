@@ -1,32 +1,45 @@
 #include <iostream>
-#include <functional>
 #include <Windows.h>
+#include <string>
 #include <libloaderapi.h>
-#include "dll_export.h"
 
 
 int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow)
 {
+    AllocConsole();
+
+    // Redirectiong cin and cout to the allocated console
+    FILE* fp;
+    freopen_s(&fp, "CONOUT$", "w", stdout);
+    freopen_s(&fp, "CONOUT$", "w", stderr);
+    freopen_s(&fp, "CONIN$", "r", stdin);
+
+    std::ios::sync_with_stdio();
 
     std::cout << "Hello world!\n";
 
     HINSTANCE hinstDLL;
-    FARPROC Engine_Main;
+    int(*Engine_Main)(HINSTANCE, HINSTANCE, PSTR, int);
     BOOL fFreeDLL;
 
     hinstDLL = LoadLibrary("GameEngine.dll");
     if (hinstDLL != NULL)
     {
-        Engine_Main = GetProcAddress(hinstDLL, "engine_main");
+        Engine_Main = (int(*)(HINSTANCE, HINSTANCE, PSTR, int))GetProcAddress(hinstDLL, "engine_main");
 
         if (Engine_Main != NULL) {
-            Engine_Main();
+            Engine_Main(hInst, hInstPrev, cmdline, cmdshow);
         }
         else {
             std::cout << "Failed loading engine dll!\n";
         }
 
+        std::cout << "freeing the dll...\n";
         fFreeDLL = FreeLibrary(hinstDLL);
+    }
+    else {
+        std::cout << "dll not found...\n";
+        std::cout << "error code: " << GetLastError() << '\n';
     }
 
     //if (hinstDLL != NULL)
@@ -40,6 +53,12 @@ int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmd
     //    api = EngineAPI{};
     //    fFreeDLL = FreeLibrary(hinstDLL);
     //}
+
+    std::string s;
+    while (std::getline(std::cin, s)) {
+        break;
+    }
+
 
     return 0;
 }

@@ -1,26 +1,29 @@
 #include <iostream>
 #include <engine_main.h>
 #include <string>
+#include <fmod.hpp>
+//#include <rttr/property.h>
+//#include <rttr/type.h>
 
 int engine_main(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow) {
 
-	AllocConsole();
 
-	// Redirectiong cin and cout to the allocated console
-    FILE* fp;
-    freopen_s(&fp, "CONOUT$", "w", stdout);
-    freopen_s(&fp, "CONOUT$", "w", stderr);
-    freopen_s(&fp, "CONIN$", "r", stdin);
+	// FMOD_RESULT result{};
+	// FMOD::System* system = NULL;
 
-    std::ios::sync_with_stdio();
+	//result = FMOD::System_Create(&system);      // Create the main system object.
+	//if (result != FMOD_OK)
+	//{
+	//	std::cout << "oh no! miku does not talk to british people!\n";
+	//}
 
-	std::cout << "hello world!!\n";
+	// rttr test
+	//rttr::property prop = rttr::type::get_global_property("NameComponent");
+	//std::cout << "typename is: " << prop.get_type().get_name() << '\n';
 
-	std::string s;
-	while (std::getline(std::cin,s)) { 
-		break;
-	}
-	
+
+
+
 	return 0;
 }
 
