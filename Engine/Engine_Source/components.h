@@ -1,3 +1,4 @@
+// credit vadim
 #pragma once
 #include <string>
 #include <glm/glm.hpp>
@@ -43,7 +44,26 @@ struct NameComponent : public Component {
 };
 
 
-struct PositionComponent : public Component {
+struct TransformComponent : public Component {
 	glm::vec3 pos{};
+	glm::vec3 scale{};
+	float rotation{};	// radians
 };
 
+struct CameraComponent : public Component {
+	glm::vec3 target{};
+	float fieldOfView{};
+	float near{};
+	float far{};
+};
+
+struct LightComponent : public Component {
+	glm::vec3 ambient{};
+	glm::vec3 diffuse{};
+	glm::vec3 specular{};
+};
+
+struct TextureComponent : public Component {
+	// texture object
+	glm::vec2 uv{};
+};
