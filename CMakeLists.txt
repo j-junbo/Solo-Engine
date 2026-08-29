@@ -4,6 +4,7 @@ cmake_minimum_required(VERSION 4.4.0)
 set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/Engine/vcpkg/scripts/buildsystems/vcpkg.cmake"
     CACHE STRING "Vcpkg toolchain file")
 set(CMAKE_CONFIGURATION_TYPES "Engine_Debug;Engine_Release" CACHE STRING "" FORCE)
+
 set(VCPKG_TARGET_TRIPLET "x64-windows-static-md" CACHE STRING "")
 cmake_policy(SET CMP0091 NEW)
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Engine_Debug>:Debug>DLL")
@@ -16,11 +17,12 @@ add_definitions(-DGLFW_DLL)
 add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 
 # Setting configurations
-set(CMAKE_CXX_FLAGS_ENGINE_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}")
-set(CMAKE_EXE_LINKER_FLAGS_ENGINE_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG}")
+set(CMAKE_MAP_IMPORTED_CONFIG_ENGINE_DEBUG "Debug")
+set(CMAKE_MAP_IMPORTED_CONFIG_ENGINE_RELEASE "Release")
 
-set(CMAKE_CXX_FLAGS_ENGINE_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
-set(CMAKE_EXE_LINKER_FLAGS_ENGINE_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE}")
+# Preprocessor Macros
+add_compile_definitions($<IF:$<CONFIG:Engine_Debug>,DEBUG,RELEASE>)
+add_compile_definitions(RTTR_DLL)
 
 # ---------------------------------------------------------------------------
 # Force all build output (regardless of config) into ./Engine/Build

@@ -24,7 +24,7 @@ public:
 		c.sentinel = nullptr;
 		sentinel->comp = this;
 	}
-	const Component& operator=(Component&& c) noexcept {
+	Component& operator=(Component&& c) noexcept {
 		sentinel = c.sentinel;
 		c.sentinel = nullptr;
 		sentinel->comp = this;
@@ -41,8 +41,14 @@ private:
 
 struct NameComponent : public Component {
 	std::string name{};
+	
+	NameComponent() = default;
+	NameComponent(const std::string& name) : name{ name } {}
 };
 
+struct ActiveComponent : public Component {
+	bool active{};
+};
 
 struct TransformComponent : public Component {
 	glm::vec3 pos{};

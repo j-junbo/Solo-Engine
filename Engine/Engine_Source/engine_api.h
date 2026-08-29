@@ -1,5 +1,6 @@
 #pragma once
 #include <functional>
+#include "registry.h"
 
 struct EngineAPI {
 
