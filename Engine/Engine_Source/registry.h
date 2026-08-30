@@ -4,6 +4,7 @@
 #include <memory>
 #include <typeindex>
 #include <typeinfo>
+#include <iostream>
 #include "utils.h"
 #include "components.h"
 
@@ -140,6 +141,7 @@ public:
 	}
 
 	friend class Registry;	// Only registry can make these changes.
+	friend class SceneLayer;
 };
 
 
@@ -152,11 +154,14 @@ private:
 	Registry(const Registry&) = delete;
 	Registry& operator=(const Registry&) = delete;
 
-	friend class Scene_Layer;
+	friend class SceneLayer;
 
 	std::unordered_map<std::type_index, ComponentStorage> componentMap;
 
 public:
+
+	Registry(Registry&&) = default;
+	Registry& operator=(Registry&&) = default;
 
 	// Check if the component is in storage or not
 	template<typename T>
@@ -169,6 +174,12 @@ public:
 	template<typename T>
 	std::pair<std::vector<size_t>&, std::vector<T>&> getComponentStorage() {
 		return componentMap.find(std::type_index(typeid(T)))->second.getStorage<T>();
+	}
+
+	// Default intializes a ComponentStorage
+	template<typename T>
+	void loadComponent() {
+		componentMap.emplace(std::type_index(typeid(T)), T{});
 	}
 
 	// Check if the entity has a component or not
@@ -198,7 +209,7 @@ public:
 
 	// Get a list of currently active entities
 	std::vector<size_t> getActiveEntities() {
-		ComponentStorage activeStorage = componentMap.find(std::type_index(typeid(ActiveComponent)))->second;
+		ComponentStorage& activeStorage = componentMap.find(std::type_index(typeid(ActiveComponent)))->second;
 		auto [sparse, dense] = activeStorage.getStorage<ActiveComponent>();
 
 		size_t index{};
@@ -210,7 +221,12 @@ public:
 
 			index++;
 		}
+
+		return list;
 	}
+
+private:
+
 };
 
 
