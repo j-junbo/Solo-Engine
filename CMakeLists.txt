@@ -1,13 +1,16 @@
 cmake_minimum_required(VERSION 4.4.0)
 
 # Setting the vcpkg toolchain file
+set(VCPKG_MANIFEST_MODE ON)
+set(VCPKG_MANIFEST_DIR "${CMAKE_SOURCE_DIR}")
 set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/Engine/vcpkg/scripts/buildsystems/vcpkg.cmake"
     CACHE STRING "Vcpkg toolchain file")
 set(CMAKE_CONFIGURATION_TYPES "Engine_Debug;Engine_Release" CACHE STRING "" FORCE)
 
-set(VCPKG_TARGET_TRIPLET "x64-windows-static-md" CACHE STRING "")
+
 cmake_policy(SET CMP0091 NEW)
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Engine_Debug>:Debug>DLL")
+
 
 project(GameEngine LANGUAGES CXX)
 
@@ -22,7 +25,7 @@ set(CMAKE_MAP_IMPORTED_CONFIG_ENGINE_RELEASE "Release")
 
 # Preprocessor Macros
 add_compile_definitions($<IF:$<CONFIG:Engine_Debug>,DEBUG,RELEASE>)
-add_compile_definitions(RTTR_DLL)
+
 
 # ---------------------------------------------------------------------------
 # Force all build output (regardless of config) into ./Engine/Build
