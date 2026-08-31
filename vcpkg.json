@@ -1,0 +1,12 @@
+{
+  "dependencies": [
+    "glew",
+    "glfw3",
+    "glm",
+    "imgui",
+    "implot",
+    "imguizmo",
+    "freetype",
+    "rttr"
+  ]
+}

@@ -66,3 +66,6 @@ CMakeUserPresets.json
 
 # vcpkg
 Engine/vcpkg/installed/
+
+# Allow external libs
+!Engine/External_Libs/

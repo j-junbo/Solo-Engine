@@ -1,6 +1,6 @@
 /* ======================================================================================== */
 /* FMOD Core API - C header file.                                                           */
-/* Copyright (c), Firelight Technologies Pty, Ltd. 2004-2026.                               */
+/* Copyright (c), Firelight Technologies Pty, Ltd. 2004-2025.                               */
 /*                                                                                          */
 /* Use this header in conjunction with fmod_common.h (which contains all the constants /    */
 /* callbacks) to develop using the C interface                                              */
@@ -515,7 +515,6 @@ FMOD_RESULT F_API FMOD_DSP_GetSystemObject              (FMOD_DSP *dsp, FMOD_SYS
 */
 
 FMOD_RESULT F_API FMOD_DSP_AddInput                     (FMOD_DSP *dsp, FMOD_DSP *input, FMOD_DSPCONNECTION **connection, FMOD_DSPCONNECTION_TYPE type);
-FMOD_RESULT F_API FMOD_DSP_AddInputPreallocated         (FMOD_DSP *dsp, FMOD_DSP *input, FMOD_DSPCONNECTION **connection);
 FMOD_RESULT F_API FMOD_DSP_DisconnectFrom               (FMOD_DSP *dsp, FMOD_DSP *target, FMOD_DSPCONNECTION *connection);
 FMOD_RESULT F_API FMOD_DSP_DisconnectAll                (FMOD_DSP *dsp, FMOD_BOOL inputs, FMOD_BOOL outputs);
 FMOD_RESULT F_API FMOD_DSP_GetNumInputs                 (FMOD_DSP *dsp, int *numinputs);

@@ -1,6 +1,6 @@
 /* ======================================================================================== */
 /* FMOD Core API - C++ header file.                                                         */
-/* Copyright (c), Firelight Technologies Pty, Ltd. 2004-2026.                               */
+/* Copyright (c), Firelight Technologies Pty, Ltd. 2004-2025.                               */
 /*                                                                                          */
 /* Use this header in conjunction with fmod_common.h (which contains all the constants /    */
 /* callbacks) to develop using the C++ language.                                            */
@@ -456,7 +456,6 @@ namespace FMOD
 
         // Connection / disconnection / input and output enumeration.
         FMOD_RESULT F_API addInput               (DSP *input, DSPConnection **connection = 0, FMOD_DSPCONNECTION_TYPE type = FMOD_DSPCONNECTION_TYPE_STANDARD);
-        FMOD_RESULT F_API addInputPreallocated   (DSP *input, DSPConnection **connection = 0);
         FMOD_RESULT F_API disconnectFrom         (DSP *target, DSPConnection *connection = 0);
         FMOD_RESULT F_API disconnectAll          (bool inputs, bool outputs);
         FMOD_RESULT F_API getNumInputs           (int *numinputs);
