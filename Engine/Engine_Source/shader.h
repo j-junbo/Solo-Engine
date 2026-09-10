@@ -15,9 +15,9 @@
 class ShaderProgram {
 public:
     GLuint handle; // OpenGL shader program handle
-    const char* sc;
-    const char* sv;
-    const char* sf;
+    std::string sc;
+    std::string sv;
+    std::string sf;
 
     bool linked; // Indicates if the shader program is successfully linked
 
@@ -43,28 +43,20 @@ private:
 
 public:
     // Constructor that takes a vertex and a fragment shaders
-    ShaderProgram(const char* sv, const char* sf)
-        : sc{ nullptr }, sv{ sv }, sf{ sf }, handle{ 0 }, linked{ false }, uniformLocations{ }
-    {
-    }
+    ShaderProgram(const std::string& sv, const std::string& sf)
+        : sc{ "" }, sv{ sv }, sf{ sf }, handle{ 0 }, linked{ false }, uniformLocations{} {}
 
     // Constructor that takes a compute shaders
-    ShaderProgram(const char* sc)
-        : sc{ sc }, sv{ nullptr }, sf{ nullptr }, handle{ 0 }, linked{ false }, uniformLocations{ }
-    {
-    }
+    ShaderProgram(const std::string& sc)
+        : sc{ sc }, sv{ "" }, sf{ "" }, handle{ 0 }, linked{ false }, uniformLocations{} {}
 
     // Defaut constructor
     ShaderProgram()
-        : sc{ nullptr }, sv{ nullptr }, sf{ nullptr }, handle{ 0 }, linked{ false }, uniformLocations{ }
-    {
-    }
+        : sc{ "" }, sv{ "" }, sf{ "" }, handle{ 0 }, linked{ false }, uniformLocations{} {}
 
     // Copy constructor
     ShaderProgram(const ShaderProgram& program)
-        : sc{ program.sc }, sv{ program.sv }, sf{ program.sf }, handle{ 0 }, linked{ false }, uniformLocations{ }
-    {
-    }
+        : sc{ program.sc }, sv{ program.sv }, sf{ program.sf }, handle{ 0 }, linked{ false }, uniformLocations{ } {}
 
     // Copy assignment operator
     ShaderProgram& operator=(const ShaderProgram& program) = delete;
@@ -73,7 +65,7 @@ public:
     ~ShaderProgram();
 
     // Compile a shader
-    void compileShader(const char* code, GLenum type);
+    void compileShader(const std::string& code, GLenum type);
 
     // Build (compile and link) the shader program
     void build();

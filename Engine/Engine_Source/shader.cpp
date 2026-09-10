@@ -54,13 +54,13 @@ void ShaderProgram::build()
     if (handle != 0)
         clean();
 
-    if (sv && sf && strlen(sv) && strlen(sf))
+    if (!sv.empty() && !sf.empty())
     {
         compileShader(sv, GL_VERTEX_SHADER);
         compileShader(sf, GL_FRAGMENT_SHADER);
         link();
     }
-    else if (sc && strlen(sc))
+    else if (!sc.empty())
     {
         compileShader(sc, GL_COMPUTE_SHADER);
         link();
@@ -109,7 +109,7 @@ void ShaderProgram::detachAndDeleteShaderObjects()
 }
 
 // Compile a shader
-void ShaderProgram::compileShader(const char* code, GLenum type)
+void ShaderProgram::compileShader(const std::string& code, GLenum type)
 {
     if (!handle)
     {
@@ -118,8 +118,9 @@ void ShaderProgram::compileShader(const char* code, GLenum type)
             throw std::runtime_error("Unable to create shader program.");
     }
 
+    const char* base_str = code.c_str();
     GLuint shaderHandle = glCreateShader(type);
-    glShaderSource(shaderHandle, 1, &code, nullptr);
+    glShaderSource(shaderHandle, 1, &base_str, nullptr);
     glCompileShader(shaderHandle);
 
     GLint result = GL_FALSE;
