@@ -25,7 +25,7 @@ set(CMAKE_MAP_IMPORTED_CONFIG_ENGINE_RELEASE "Release")
 
 # Preprocessor Macros
 add_compile_definitions($<IF:$<CONFIG:Engine_Debug>,DEBUG,RELEASE>)
-
+add_compile_definitions(GAME_NAME="")
 
 # ---------------------------------------------------------------------------
 # Force all build output (regardless of config) into ./Engine/Build
@@ -123,6 +123,10 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     "${CMAKE_SOURCE_DIR}/Engine/External_Libs/fmod/inc"
 )
 
+# ---------------------------------------------------------------------------
+# Custom Commands
+# ---------------------------------------------------------------------------
+
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "${CMAKE_SOURCE_DIR}/Engine/External_Libs/fmod/lib/x64/fmod.dll"
@@ -134,6 +138,12 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         $<TARGET_RUNTIME_DLLS:${PROJECT_NAME}>
         $<TARGET_FILE_DIR:${PROJECT_NAME}>
     COMMAND_EXPAND_LISTS
+)
+
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
+        "${CMAKE_SOURCE_DIR}/Engine/Assets/Engine_Assets"
+        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/Assets"
 )
 
 # ---------------------------------------------------------------------------
