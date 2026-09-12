@@ -73,3 +73,8 @@ struct TextureComponent : public Component {
 	// texture object
 	glm::vec2 uv{};
 };
+
+// this allows for 65k unique objects.
+struct ObjectComponent : public Component {
+	unsigned short objID{};
+};

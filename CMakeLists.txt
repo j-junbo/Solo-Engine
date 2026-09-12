@@ -143,7 +143,7 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
         "${CMAKE_SOURCE_DIR}/Engine/Assets/Engine_Assets"
-        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/Assets"
+        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/Assets/Engine_Assets"
 )
 
 # ---------------------------------------------------------------------------

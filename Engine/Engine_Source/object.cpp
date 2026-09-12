@@ -7,7 +7,7 @@ std::vector<Object>			ObjectManager::objectList;
 std::vector<std::string>	ObjectManager::nameList;
 std::string					ObjectManager::meshFilePath;
 
-void ObjectManager::Init() {
+void ObjectManager::init() {
 	if (std::string(GAME_NAME).empty()) {
 		// Load with default engine list
 		meshFilePath = { "Assets/Engine_Assets/Meshes/" };
@@ -27,15 +27,20 @@ void ObjectManager::Init() {
 		// Read the file and add it in order, the order will equal the id of object meshes
 		std::string name;
 		while (std::getline(ifs, name)) {
-			AddObject(name);
+			addObject(name);
 		}
 
 	}
 }
-void ObjectManager::Free() {
+
+void ObjectManager::free() {
 
 }
-void ObjectManager::AddObject(const std::string& name) {
+
+const Object& ObjectManager::getObject(unsigned id) { return objectList[id]; }
+std::string ObjectManager::getObjectName(unsigned id) { return nameList[id]; }
+
+void ObjectManager::addObject(const std::string& name) {
 	// deserialize the object data
 	std::ifstream meshFile(meshFilePath + name);
 	std::string line;
@@ -192,10 +197,13 @@ void ObjectManager::AddObject(const std::string& name) {
 	objectList.push_back(object);
 	nameList.push_back(name);
 }
-void ObjectManager::ReleaseObject(const std::string& name) {
+void ObjectManager::releaseObject(const std::string& name) {
 	// uh
+
+	auto diff = std::find(nameList.begin(), nameList.end(), name) - nameList.begin();
+	releaseObject(static_cast<unsigned>(diff));
 }
-void ObjectManager::ReleaseObject(unsigned id) {
+void ObjectManager::releaseObject(unsigned id) {
 	Object& obj = objectList[id];
 	
 	if (obj.vao != 0) {

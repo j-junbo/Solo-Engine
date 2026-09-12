@@ -11,16 +11,16 @@ struct Object {
 
 class ObjectManager {
 public:
-	static void Init();
-	static void Free();
+	static void init();
+	static void free();
 	static const Object& getObject(unsigned id);
 	static std::string getObjectName(unsigned id);
-	static void AddObject(const std::string& name);
+	static void addObject(const std::string& name);
 
 private:
 
-	static void ReleaseObject(const std::string& name);
-	static void ReleaseObject(unsigned id);
+	static void releaseObject(const std::string& name);
+	static void releaseObject(unsigned id);
 
 	static std::vector<Object>		objectList;
 	static std::vector<std::string> nameList;
