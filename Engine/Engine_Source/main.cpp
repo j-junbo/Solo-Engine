@@ -41,11 +41,6 @@ int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmd
         std::cout << "error code: " << GetLastError() << '\n';
     }
 
-    std::string s;
-    while (std::getline(std::cin, s)) {
-        break;
-    }
-
 
     return 0;
 }

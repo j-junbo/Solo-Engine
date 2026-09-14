@@ -6,6 +6,8 @@
 
 class Component; // Forward declaration
 
+// The sentinel keeps track of the component it belongs to, aka
+// the pointer remains valid even after the component is moved.
 struct Sentinel {
 	Component* comp{ nullptr };
 };
@@ -39,9 +41,12 @@ private:
 
 };
 
+// All components
+
 struct NameComponent : public Component {
 	std::string name{};
 	
+	// Only here for the test case. Will be removed in the future.
 	NameComponent() = default;
 	NameComponent(const std::string& name) : name{ name } {}
 };

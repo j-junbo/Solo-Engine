@@ -7,22 +7,25 @@
 #include <registry.h>
 #include "components.h"
 
+
+// currently does not do much, only tests basic functionalities within the engine
 int engine_main(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow) {
 
+	// fmod test
+	FMOD_RESULT result{};
+	FMOD::System* system = NULL;
 
-	// FMOD_RESULT result{};
-	// FMOD::System* system = NULL;
-
-	//result = FMOD::System_Create(&system);      // Create the main system object.
-	//if (result != FMOD_OK)
-	//{
-	//	std::cout << "oh no! miku does not talk to british people!\n";
-	//}
+	result = FMOD::System_Create(&system);      // Create the main system object.
+	if (result != FMOD_OK)
+	{
+		std::cout << "oh no! miku does not talk to british people!\n";
+	}
 
 	// rttr test
 	rttr::property prop = rttr::type::get_by_name("NameComponent").get_property("name");
 	std::cout << "typename is: " << prop.get_type().get_name().data() << '\n';
 
+	// component test
 	ComponentStorage comp{ NameComponent{} };
 	auto [sparse, dense] = comp.getStorage<NameComponent>();
 	auto& index = comp.getIndex();
