@@ -18,6 +18,7 @@ std::vector<ApplicationManager::mScrollCb> ApplicationManager::mScrollCbVec;
 std::vector<ApplicationManager::mPosCb>    ApplicationManager::mPosCbVec;
 std::vector<ApplicationManager::focusCb>   ApplicationManager::focusCbVec;
 
+
 void ApplicationManager::init() {
 
 	// Initialize config parameters here...
@@ -64,6 +65,15 @@ void ApplicationManager::init() {
 		return;
 	}
 
+	// Initialize callbacks
+	glfwSetErrorCallback(errorCbInternal);
+	glfwSetFramebufferSizeCallback(windowPtr, fbsizeCbInternal);
+	glfwSetKeyCallback(windowPtr, keyCbInternal);
+	glfwSetMouseButtonCallback(windowPtr, mButtonCbInternal);
+	glfwSetScrollCallback(windowPtr, mScrollCbInternal);
+	glfwSetCursorPosCallback(windowPtr, mPosCbInternal);
+	glfwSetWindowFocusCallback(windowPtr, focusCbInternal);
+
 }
 
 void ApplicationManager::run() {
@@ -89,10 +99,10 @@ static void iterateInternal(std::vector<Func>& v, Args&&... a) {
 	}
 }
 
-void ApplicationManager::errorCbInternal(int error, char const* description)							{ iterateInternal(errorCbVec, error, description); }
-void ApplicationManager::fbsizeCbInternal(GLFWwindow* pwin, int width, int height)						{ iterateInternal(fbsizeCbVec, pwin, width, height); }
-void ApplicationManager::keyCbInternal(GLFWwindow* pwin, int key, int scancode, int action, int mod)	{ iterateInternal(keyCbVec, pwin, key, scancode, action, mod); }
-void ApplicationManager::mButtonCbInternal(GLFWwindow* pwin, int button, int action, int mod)			{ iterateInternal(mButtonCbVec, pwin, button, action, mod); }
-void ApplicationManager::mScrollCbInternal(GLFWwindow* pwin, double xoffset, double yoffset)			{ iterateInternal(mScrollCbVec, pwin, xoffset, yoffset); }
-void ApplicationManager::mPosCbInternal(GLFWwindow* pwin, double xpos, double ypos)						{ iterateInternal(mPosCbVec, pwin, xpos, ypos); }
-void ApplicationManager::focusCbInternal(GLFWwindow* pwin, int focused)									{ iterateInternal(focusCbVec, pwin, focused); }
+template <typename... Args> void ApplicationManager::errorCbInternal(Args... args)		{ iterateInternal(errorCbVec, args...); }
+template <typename... Args> void ApplicationManager::fbsizeCbInternal(Args... args)		{ iterateInternal(fbsizeCbVec, args...); }
+template <typename... Args> void ApplicationManager::keyCbInternal(Args... args)		{ iterateInternal(keyCbVec, args...); }
+template <typename... Args> void ApplicationManager::mButtonCbInternal(Args... args)	{ iterateInternal(mButtonCbVec, args...); }
+template <typename... Args> void ApplicationManager::mScrollCbInternal(Args... args)	{ iterateInternal(mScrollCbVec, args...); }
+template <typename... Args> void ApplicationManager::mPosCbInternal(Args... args)		{ iterateInternal(mPosCbVec, args...); }
+template <typename... Args> void ApplicationManager::focusCbInternal(Args... args)		{ iterateInternal(focusCbVec, args...); }

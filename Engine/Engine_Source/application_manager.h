@@ -7,13 +7,13 @@
 class ApplicationManager {
 public:
 
-	using errorCb =		void(*)(int, char const*);
-	using fbsizeCb =	void(*)(GLFWwindow*, int, int);
-	using keyCb =		void(*)(GLFWwindow*, int, int, int, int);
-	using mButtonCb =	void(*)(GLFWwindow*, int, int, int);
-	using mScrollCb =	void(*)(GLFWwindow*, double, double);
-	using mPosCb =		void(*)(GLFWwindow*, double, double);
-	using focusCb =		void(*)(GLFWwindow*, int);
+	using errorCb =		void(*)(int, char const*);					// void errorCb(int error, char const* description);
+	using fbsizeCb =	void(*)(GLFWwindow*, int, int);				// void fbsizeCb(GLFWwindow* pwin, int width, int height);
+	using keyCb =		void(*)(GLFWwindow*, int, int, int, int);	// void keyCb(GLFWwindow* pwin, int key, int scancode, int action, int mod);
+	using mButtonCb =	void(*)(GLFWwindow*, int, int, int);		// void mButtonCb(GLFWwindow* pwin, int button, int action, int mod);
+	using mScrollCb =	void(*)(GLFWwindow*, double, double);		// void mScrollCb(GLFWwindow* pwin, double xoffset, double yoffset);
+	using mPosCb =		void(*)(GLFWwindow*, double, double);		// void mPosCb(GLFWwindow* pwin, double xpos, double ypos);
+	using focusCb =		void(*)(GLFWwindow*, int);					// void focusCb(GLFWwindow* pwin, int focused);
 
 public:
 
@@ -32,13 +32,13 @@ public:
 
 private:
 
-	static void errorCbInternal(int error, char const* description);
-	static void fbsizeCbInternal(GLFWwindow* ptr_win, int width, int height);
-	static void keyCbInternal(GLFWwindow* pwin, int key, int scancode, int action, int mod);
-	static void mButtonCbInternal(GLFWwindow* pwin, int button, int action, int mod);
-	static void mScrollCbInternal(GLFWwindow* pwin, double xoffset, double yoffset);
-	static void mPosCbInternal(GLFWwindow* pwin, double xpos, double ypos);
-	static void focusCbInternal(GLFWwindow* window, int focused);
+	template <typename... Args> static void errorCbInternal(Args... args);
+	template <typename... Args> static void fbsizeCbInternal(Args... args);
+	template <typename... Args> static void keyCbInternal(Args... args);
+	template <typename... Args> static void mButtonCbInternal(Args... args);
+	template <typename... Args> static void mScrollCbInternal(Args... args);
+	template <typename... Args> static void mPosCbInternal(Args... args);
+	template <typename... Args> static void focusCbInternal(Args... args);
 
 	static size_t		width;
 	static size_t		height;
